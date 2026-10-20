@@ -10,7 +10,7 @@
  *
  * Exit 0 = every check passed. Exit 1 = at least one did not, and it says which.
  */
-const HOST = "fm-radio.nodejavascript.com";
+const HOST = "sprawl.nodejavascript.com";
 const BASE = `https://${HOST}`;
 
 let failures = 0;
@@ -50,11 +50,12 @@ console.log(`live check — ${BASE}\n`);
 
 // 3 · the icons, the manifest and the crawler files a deployed site must actually serve
 for (const [path, type] of [
-  ["/img/favicon-180.png", "image/png"],
-  ["/img/favicon.svg", "image/svg"],
-  ["/img/favicon.ico", "image/"],
-  ["/img/apple-touch-icon.png", "image/png"],
-  ["/img/app.webp", "image/webp"],
+  ["/favicon-180.png", "image/png"],
+  ["/favicon.svg", "image/svg"],
+  ["/favicon.ico", "image/"],
+  ["/apple-touch-icon.png", "image/png"],
+  ["/favicon-32.png", "image/png"],
+  ["/img/og.png", "image/png"],
   ["/manifest.webmanifest", "json"],
   ["/robots.txt", "text/plain"],
   ["/sitemap.xml", "xml"],
@@ -71,7 +72,7 @@ for (const [path, type] of [
   check("the sitemap names this host", xml.includes(`https://${HOST}/`));
   const { res: rr } = await head("/robots.txt");
   const robots = await rr.text();
-  check("robots.txt carries the Sitemap line", /Sitemap:\s*https:\/\/fm-radio\.nodejavascript\.com\/sitemap\.xml/.test(robots));
+  check("robots.txt carries the Sitemap line", /Sitemap:\s*https:\/\/sprawl\.nodejavascript\.com\/sitemap\.xml/.test(robots));
 }
 
 // 5 · the owner-exclusion rule at the origin: his own network is served a STUB for /consent.js,

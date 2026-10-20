@@ -95,8 +95,8 @@
     'Analytics counts the visit — no profile of you is built here, nothing is sold, and the game ' +
     'itself never sends anything at all. <a href="#privacy">What that means</a>.</p>' +
     '<div class="consentActions">' +
-    '<button type="button" class="primary" data-answer="granted">Allow analytics</button>' +
-    '<button type="button" data-answer="denied">Only what is needed</button>' +
+    '<button type="button" class="primary" id="consentAccept" data-answer="granted">Allow analytics</button>' +
+    '<button type="button" id="consentDecline" data-answer="denied">Only what is needed</button>' +
     "</div></div>";
 
   function prefs(current) {
