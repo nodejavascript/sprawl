@@ -59,12 +59,39 @@ def main() -> int:
 
     order = re.findall(r'<link rel="(?:icon|apple-touch-icon)"[^>]*href="([^"]+)"', html)
     check(
-        "the 180-pixel PNG is the FIRST icon declared (SVG is not a format Google reads)",
-        bool(order) and "favicon-180.png" in order[0],
+        "the 192-pixel PNG is the FIRST icon declared (largest square Google reads)",
+        bool(order) and "favicon-192.png" in order[0],
         "first is %s" % (order[0] if order else "none"),
     )
-    for size in ("favicon-180.png", "favicon.svg", "favicon-32.png", "favicon.ico", "apple-touch-icon.png"):
+    def declared_at(name):
+        """Index of the declaration naming `name`, or -1. The hrefs are paths, so match on the tail."""
+        return next((i for i, h in enumerate(order) if name in h), -1)
+
+    check(
+        "the 180-pixel PNG is declared BEFORE the SVG (SVG is not a format Google reads)",
+        declared_at("favicon-180.png") >= 0
+        and declared_at("favicon.svg") >= 0
+        and declared_at("favicon-180.png") < declared_at("favicon.svg"),
+        ", ".join(order),
+    )
+    for size in (
+        "favicon-192.png",
+        "favicon-180.png",
+        "favicon.svg",
+        "favicon-32.png",
+        "favicon.ico",
+        "apple-touch-icon.png",
+    ):
         check("the icon set declares %s" % size, any(size in h for h in order))
+    # sizes="any" means SCALABLE (an SVG). An .ico is a set of raster bitmaps, so declaring it "any"
+    # tells every consumer that reads the attribute the file is something it is not — the root cause
+    # of the "can't interpret the icon" fault found 20 October 2026.
+    ico = re.search(r'<link[^>]*href="/favicon\.ico"[^>]*>', html)
+    check(
+        'the .ico declares its real raster sizes and never sizes="any"',
+        bool(ico) and 'sizes="any"' not in ico.group(0) and "16x16" in ico.group(0),
+        ico.group(0) if ico else "no .ico link",
+    )
 
     check("no analytics tag in the page (the gate creates it)", "googletagmanager" not in html)
     check("no privacy.html anywhere", "privacy.html" not in html)

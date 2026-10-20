@@ -9,7 +9,8 @@ drawing as site/favicon.svg and the SVG in the page header, so part 15c compares
 one drawing with itself.
 
 Writes, into site/:
-    favicon-180.png       180x180  (declared FIRST — the only icon Google reads)
+    favicon-192.png       192x192  (declared FIRST — the largest square Google reads)
+    favicon-180.png       180x180  (declared second — the Apple/legacy size)
     favicon-32.png         32x32
     favicon.ico           16/32/48
     apple-touch-icon.png  180x180 OPAQUE (iOS paints transparency black)
@@ -59,6 +60,7 @@ def draw(size: int, opaque: bool = False) -> Image.Image:
 
 
 def main() -> None:
+    draw(192).save(SITE / "favicon-192.png")   # the one Google takes: largest square, >48
     draw(180).save(SITE / "favicon-180.png")
     draw(32).save(SITE / "favicon-32.png")
     draw(192).save(SITE / "icon-192.png")

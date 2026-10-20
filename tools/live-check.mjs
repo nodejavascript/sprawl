@@ -50,6 +50,7 @@ console.log(`live check — ${BASE}\n`);
 
 // 3 · the icons, the manifest and the crawler files a deployed site must actually serve
 for (const [path, type] of [
+  ["/favicon-192.png", "image/png"],
   ["/favicon-180.png", "image/png"],
   ["/favicon.svg", "image/svg"],
   ["/favicon.ico", "image/"],
