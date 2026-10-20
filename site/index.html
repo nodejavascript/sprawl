@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>sprawl.nodejavascript.com</title>
+<meta name="description" content="Fly an endless neon city that does not exist until you reach it. Towers rise out of the ground a row ahead of you, in one canvas that draws 3D and 2D together." />
+<link rel="canonical" href="https://sprawl.nodejavascript.com/" />
+<meta name="theme-color" content="#a855f7" />
+<meta name="color-scheme" content="dark" />
+
+<link rel="icon" type="image/png" sizes="180x180" href="/favicon-180.png" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+<link rel="icon" href="/favicon.ico" sizes="any" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<link rel="manifest" href="/manifest.webmanifest" />
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="sprawl.nodejavascript.com" />
+<meta property="og:title" content="Nothing is built until you arrive" />
+<meta property="og:description" content="An endless neon city, rebuilt a row ahead of you. A 3D game with a 2D layer on the same canvas, made with LittleJS." />
+<meta property="og:url" content="https://sprawl.nodejavascript.com/" />
+<meta property="og:image" content="https://sprawl.nodejavascript.com/img/og.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Nothing is built until you arrive" />
+<meta name="twitter:description" content="An endless neon city, rebuilt a row ahead of you. A 3D game with a 2D layer on the same canvas, made with LittleJS." />
+<meta name="twitter:image" content="https://sprawl.nodejavascript.com/img/og.png" />
+
+<link rel="stylesheet" href="/styles.css" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VideoGame",
+  "name": "SPRAWL",
+  "description": "An endless neon city that is rebuilt a row ahead of you. A 3D flight through towers that rise as you arrive, with a 2D HUD drawn on the same canvas.",
+  "url": "https://sprawl.nodejavascript.com/",
+  "applicationCategory": "Game",
+  "gamePlatform": "Web browser",
+  "operatingSystem": "Any modern browser with WebGL2",
+  "playMode": "SinglePlayer",
+  "isAccessibleForFree": true,
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CAD" },
+  "codeRepository": "https://github.com/nodejavascript/sprawl",
+  "programmingLanguage": "JavaScript",
+  "author": { "@type": "Organization", "name": "nodejavascript.com", "url": "https://nodejavascript.com/" }
+}
+</script>
+</head>
+<body>
+<!-- The abstract layer: the site's own drawing — a corridor of rays and upright
+     bars from a vanishing point below the screen, faded by a mask. Standard part 5d. -->
+<div class="dvs-pattern" aria-hidden="true"></div>
+<a class="skip" href="#play">Skip to the game</a>
+
+<header class="top">
+  <a class="brand" href="/" aria-label="sprawl.nodejavascript.com — home">
+    <span class="mark" aria-hidden="true">
+      <!-- Part 15c: this drawing IS favicon.svg, in the favicon's own viewBox. -->
+      <svg viewBox="0 0 64 64" width="28" height="28" focusable="false">
+        <rect width="64" height="64" rx="12" fill="#0a0614" />
+        <rect x="10" y="26" width="5" height="28" fill="#22d3ee" />
+        <rect x="19" y="16" width="5" height="38" fill="#a855f7" />
+        <rect x="28" y="34" width="5" height="20" fill="#22d3ee" />
+        <rect x="37" y="22" width="5" height="32" fill="#a855f7" />
+        <rect x="46" y="30" width="5" height="24" fill="#f97316" />
+        <rect x="10" y="10" width="41" height="4" rx="2" fill="#e5e7ff" />
+      </svg>
+    </span>
+    <span class="brand-text">
+      <b>SPRAWL</b>
+      <small>nodejavascript.com</small>
+    </span>
+  </a>
+</header>
+
+<main>
+  <section class="hero">
+    <p class="eyebrow">A 3D game with a 2D layer on the same canvas</p>
+    <h1>Nothing is built until you arrive.</h1>
+    <p class="lede">
+      Fly a corridor of neon towers that do not exist yet. Every row you pass is rebuilt a
+      kilometre ahead, and its buildings <strong>rise out of the ground as you reach them</strong> —
+      the skyline is not a map, it is an answer to where you are. Collect the shards, stay off the
+      walls, and the city keeps coming.
+    </p>
+    <p class="sub">
+      One canvas holds both worlds: the city, the ship, the lights, the shadows and the fog are
+      <b>3D</b>; the score, the shield, the boost bar and the radar are <b>2D</b> drawn straight
+      over them. The whole city is <b>four instanced draw calls</b> — bodies, roof lights, neon
+      edges and lit windows — so it holds 60 frames a second while you fly.
+    </p>
+    <p class="cta">
+      <a class="btn primary" href="#play" id="heroPlay">Play</a>
+      <a class="btn" href="#how">How it is made</a>
+      <a class="btn ghost" href="https://github.com/nodejavascript/sprawl">
+        <svg class="gh-star" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.4l1.98 4.2 4.42.5-3.3 3.05.9 4.45L8 11.4l-4 2.2.9-4.45L1.6 6.1l4.42-.5z"></path></svg>
+        Source
+      </a>
+    </p>
+    <p class="plain">LittleJS 1.27 · WebGL2 · one HTML file · no build step · no account</p>
+  </section>
+
+  <section class="card" id="play">
+    <div class="card-head">
+      <h2>Fly it</h2>
+      <p class="status" id="status">Ready — press Play, or Space</p>
+    </div>
+
+    <div class="stage-wrap" id="stage" aria-label="SPRAWL — a 3D neon city flown from behind a ship"></div>
+
+    <div class="controls">
+      <button id="playBtn" type="button" class="primary">Play</button>
+      <button id="muteBtn" type="button" aria-pressed="false">Sound on</button>
+      <span class="keys">← → steer · ↑ ↓ climb · Space boost · R restart</span>
+    </div>
+    <p class="hint">
+      The city is generated in rows. A row you have passed is thrown away and rebuilt far ahead,
+      so what you see behind you exists only in the moment you saw it.
+    </p>
+  </section>
+
+  <section class="prose" id="how">
+    <h2>How it is made</h2>
+
+    <h3>Two renderers, one canvas</h3>
+    <p>
+      LittleJS 1.27 added a 3D pass that shares the engine's canvas with the 2D layer. The hull,
+      the towers, the roof lights, the shadows, the fog and the particles go through the 3D pass;
+      the HUD and the radar are the ordinary 2D drawing calls, on top, in the same frame. That is
+      why the score can sit over a rotating city without a second element or a second canvas.
+    </p>
+
+    <h3>The city is four draw calls</h3>
+    <p>
+      Every tower is an instance of one box. Bodies, roof bands, two neon edge strips and three
+      lit windows each live in an <em>InstancedMesh3D</em>, so seven hundred-odd buildings cost
+      four draw calls per frame no matter how many are standing. Collision is a plain box test
+      against the rows near the ship.
+    </p>
+
+    <h3>The towers grow as you arrive</h3>
+    <p>
+      A row that falls behind the ship is moved to the far end of the corridor, given fresh
+      heights, and grown from zero over about half a second. That is the whole trick, and it is
+      the reason the skyline looks alive instead of loaded.
+    </p>
+  </section>
+
+  <section class="prose" id="privacy">
+    <h2>Privacy</h2>
+    <p>
+      This page sets nothing until you answer the cookie question. <b>If you decline, no request
+      of any kind goes to Google</b> — the analytics script is not in the page at all; it is
+      created only after a yes, and the choice is remembered in this browser.
+    </p>
+    <p>
+      The game itself runs entirely in your browser. Nothing you do in it is sent anywhere: there
+      is no account, no server side to the game, and no score is uploaded. The only thing measured
+      is the visit, and only if you allow it. Your best score is kept in this browser's local
+      storage and nowhere else.
+    </p>
+    <p>
+      <button type="button" class="linkish" id="consentBtnInline" data-consent-open>Change the cookie choice</button>
+    </p>
+  </section>
+</main>
+
+<footer>
+  <div class="foot-brand">
+    <a href="https://nodejavascript.com">nodejavascript.com</a>
+    <span>·</span>
+    <a href="/">sprawl.nodejavascript.com</a>
+  </div>
+  <nav class="foot-links" aria-label="Footer">
+    <a href="#play">Play</a>
+    <a href="#how">How it is made</a>
+    <a href="#privacy">Privacy</a>
+    <a href="https://github.com/nodejavascript/sprawl">
+      <svg class="gh-star" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.4l1.98 4.2 4.42.5-3.3 3.05.9 4.45L8 11.4l-4 2.2.9-4.45L1.6 6.1l4.42-.5z"></path></svg>
+      Source
+    </a>
+    <button type="button" id="consentBtn" class="linkish" data-consent-open>Cookie settings</button>
+  </nav>
+  <p class="foot-copy">© 2026 sprawl.nodejavascript.com</p>
+</footer>
+
+<script src="/littlejs.min.js"></script>
+<script src="/consent.js" data-ga-id="G-KHNSD5P8TT"></script>
+<script src="/game.js"></script>
+</body>
+</html>

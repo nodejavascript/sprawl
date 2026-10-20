@@ -1,0 +1,661 @@
+:root
+{
+    --bg: #07040f;
+    --panel: rgba(12, 7, 24, .72);
+    --ink: #ece9fb;
+    --muted: #a79fc4;
+    --line: rgba(168, 85, 247, .22);
+    --violet: #a855f7;
+    --cyan: #22d3ee;
+    --amber: #fbbf24;
+    --radius: 16px;
+    --consent-height: 0px;
+}
+
+*
+{
+    box-sizing: border-box;
+}
+
+html
+{
+    scroll-behavior: smooth;
+    scroll-padding-top: 84px;
+}
+
+body
+{
+    margin: 0;
+    min-height: 100%;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+}
+
+/* ── the abstract: the site's own drawing ───────────────────────────────────
+   A corridor seen from above the vanishing point — rays leaving a point below
+   the screen, crossed by upright bars, faded by a mask so no edge is hard.
+   It is the city's own geometry, drawn in the page rather than a wash. */
+.dvs-pattern
+{
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-color: var(--bg);
+    background-image:
+        repeating-conic-gradient(from 0deg at 50% 118%,
+            rgba(168, 85, 247, .30) 0deg 0.9deg,
+            rgba(168, 85, 247, 0) 0.9deg 7deg),
+        repeating-linear-gradient(90deg,
+            rgba(34, 211, 238, .17) 0 1px,
+            rgba(34, 211, 238, 0) 1px 96px),
+        radial-gradient(120% 78% at 50% 4%,
+            rgba(168, 85, 247, .24), rgba(7, 4, 15, 0) 62%),
+        linear-gradient(180deg, #07040f 0%, #0c0620 52%, #07040f 100%);
+    -webkit-mask-image: linear-gradient(180deg, rgba(0, 0, 0, .95), rgba(0, 0, 0, .32) 58%, rgba(0, 0, 0, .9));
+    mask-image: linear-gradient(180deg, rgba(0, 0, 0, .95), rgba(0, 0, 0, .32) 58%, rgba(0, 0, 0, .9));
+}
+
+main,
+header,
+footer
+{
+    position: relative;
+    z-index: 1;
+}
+
+a
+{
+    color: var(--ink);
+}
+
+.skip
+{
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    padding: .6rem 1rem;
+    background: var(--violet);
+    color: #0a0614;
+    z-index: 20;
+    border-radius: 0 0 10px 0;
+    font-weight: 700;
+}
+
+.skip:focus
+{
+    left: 0;
+}
+
+/* ── the bar ─────────────────────────────────────────────────────────────── */
+
+.top
+{
+    position: sticky;
+    top: 0;
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    padding: .35rem clamp(1rem, 4vw, 2.5rem);
+    background: rgba(7, 4, 15, .82);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line);
+}
+
+.brand
+{
+    display: inline-flex;
+    align-items: center;
+    gap: .7rem;
+    text-decoration: none;
+    padding: .35rem 0;
+}
+
+.brand .mark
+{
+    display: inline-flex;
+    line-height: 0;
+    filter: drop-shadow(0 0 10px rgba(168, 85, 247, .45));
+}
+
+.brand-text
+{
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+}
+
+.brand-text b
+{
+    font-size: 1rem;
+    letter-spacing: .22em;
+    font-weight: 800;
+}
+
+.brand-text small
+{
+    font-size: .62rem;
+    letter-spacing: .3em;
+    color: var(--muted);
+    text-transform: uppercase;
+}
+
+/* ── the hero ────────────────────────────────────────────────────────────── */
+
+.hero
+{
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: clamp(3rem, 9vh, 6rem) clamp(1.1rem, 4vw, 2.5rem) 2rem;
+}
+
+.eyebrow
+{
+    margin: 0 0 .9rem;
+    font-size: .72rem;
+    letter-spacing: .28em;
+    text-transform: uppercase;
+    color: var(--cyan);
+}
+
+h1
+{
+    margin: 0 0 1rem;
+    font-size: clamp(2.1rem, 6.2vw, 4rem);
+    line-height: 1.04;
+    letter-spacing: -.02em;
+    text-wrap: balance;
+    background: linear-gradient(100deg, #f4f0ff 0%, #c4b5fd 46%, #67e8f9 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.lede
+{
+    font-size: clamp(1.02rem, 1.7vw, 1.2rem);
+    color: #dcd7ef;
+    max-width: 62ch;
+    margin: 0 0 1rem;
+}
+
+.sub
+{
+    color: var(--muted);
+    max-width: 66ch;
+    margin: 0 0 1.4rem;
+}
+
+.sub b
+{
+    color: var(--ink);
+}
+
+.cta
+{
+    display: flex;
+    flex-wrap: wrap;
+    gap: .7rem;
+    margin: 0 0 1.2rem;
+}
+
+.btn
+{
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .68rem 1.15rem;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    color: var(--ink);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: .95rem;
+    background: rgba(168, 85, 247, .08);
+    transition: transform .15s ease, background .15s ease, border-color .15s ease;
+}
+
+.btn:hover
+{
+    transform: translateY(-1px);
+    background: rgba(168, 85, 247, .18);
+    border-color: rgba(168, 85, 247, .45);
+}
+
+.btn.primary
+{
+    background: linear-gradient(120deg, var(--violet), #7c3aed);
+    border-color: transparent;
+    color: #fff;
+    box-shadow: 0 10px 30px -12px rgba(168, 85, 247, .9);
+}
+
+.btn.ghost
+{
+    background: transparent;
+}
+
+.gh-star
+{
+    width: .95em;
+    height: .95em;
+    fill: var(--amber);
+    flex: none;
+}
+
+.plain
+{
+    margin: 0;
+    font-size: .78rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+/* ── the game ────────────────────────────────────────────────────────────── */
+
+.card
+{
+    max-width: 1180px;
+    margin: 0 auto 1.5rem;
+    padding: clamp(1rem, 2.4vw, 1.6rem);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--panel);
+    backdrop-filter: blur(6px);
+}
+
+.card-head
+{
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: .9rem;
+}
+
+.card-head h2
+{
+    margin: 0;
+    font-size: 1.1rem;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+}
+
+.status
+{
+    margin: 0;
+    font-size: .82rem;
+    color: var(--cyan);
+    font-variant-numeric: tabular-nums;
+}
+
+.stage-wrap
+{
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: 12px;
+    background: #04020a;
+    border: 1px solid rgba(168, 85, 247, .16);
+    box-shadow: 0 30px 80px -50px rgba(168, 85, 247, .9), inset 0 0 60px rgba(4, 2, 10, .9);
+}
+
+.stage-wrap canvas
+{
+    display: block;
+}
+
+.controls
+{
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    flex-wrap: wrap;
+    margin-top: .9rem;
+}
+
+.controls button
+{
+    font: inherit;
+    font-size: .9rem;
+    font-weight: 600;
+    padding: .5rem 1rem;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: rgba(168, 85, 247, .1);
+    color: var(--ink);
+    cursor: pointer;
+}
+
+.controls button.primary
+{
+    background: linear-gradient(120deg, var(--violet), #7c3aed);
+    border-color: transparent;
+    color: #fff;
+}
+
+.controls button[aria-pressed="true"]
+{
+    border-color: rgba(34, 211, 238, .55);
+    color: var(--cyan);
+}
+
+.keys
+{
+    margin-left: auto;
+    font-size: .78rem;
+    color: var(--muted);
+    letter-spacing: .04em;
+}
+
+.hint
+{
+    margin: .8rem 0 0;
+    font-size: .86rem;
+    color: var(--muted);
+    max-width: 70ch;
+}
+
+/* ── prose ───────────────────────────────────────────────────────────────── */
+
+.prose
+{
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 3rem clamp(1.1rem, 4vw, 2.5rem) 0;
+}
+
+.prose h2
+{
+    margin: 0 0 1rem;
+    font-size: clamp(1.3rem, 2.6vw, 1.75rem);
+    letter-spacing: -.01em;
+}
+
+.prose h3
+{
+    margin: 1.8rem 0 .5rem;
+    font-size: 1rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--cyan);
+}
+
+.prose p
+{
+    margin: 0 0 1rem;
+    color: #cdc7e6;
+}
+
+/* ── footer ──────────────────────────────────────────────────────────────── */
+
+footer
+{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .9rem 1.4rem;
+    max-width: 1180px;
+    margin: 4rem auto 0;
+    padding: 1.6rem clamp(1.1rem, 4vw, 2.5rem) 2.4rem;
+    border-top: 1px solid var(--line);
+    font-size: .84rem;
+    color: var(--muted);
+}
+
+.foot-brand
+{
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+.foot-brand a
+{
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+}
+
+.foot-brand a:hover
+{
+    border-bottom-color: var(--violet);
+}
+
+.foot-links
+{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .4rem 1.1rem;
+    margin-left: auto;
+}
+
+.foot-links a
+{
+    color: var(--ink);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: .38rem;
+    border-bottom: 1px solid transparent;
+}
+
+.foot-links a:hover
+{
+    border-bottom-color: var(--violet);
+}
+
+.linkish
+{
+    font: inherit;
+    color: var(--ink);
+    background: none;
+    border: 0;
+    border-bottom: 1px dotted rgba(168, 85, 247, .7);
+    padding: 0;
+    cursor: pointer;
+}
+
+.foot-copy
+{
+    margin: 0;
+    width: 100%;
+    font-size: .78rem;
+    letter-spacing: .06em;
+    color: rgba(167, 159, 196, .8);
+}
+
+/* ── the cookie gate ─────────────────────────────────────────────────────── */
+
+#consentBar
+{
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+    padding: .9rem clamp(1rem, 4vw, 2.5rem);
+    background: rgba(9, 5, 18, .96);
+    border-top: 1px solid rgba(168, 85, 247, .4);
+    box-shadow: 0 -20px 60px -30px rgba(168, 85, 247, .8);
+    backdrop-filter: blur(10px);
+}
+
+.consentAsk,
+.consentPrefs
+{
+    max-width: 1180px;
+    margin: 0 auto;
+}
+
+.consentTitle
+{
+    margin: 0 0 .35rem;
+    font-size: 1rem;
+    letter-spacing: .04em;
+}
+
+.consentText
+{
+    margin: 0 0 .8rem;
+    font-size: .88rem;
+    color: var(--muted);
+    max-width: 80ch;
+}
+
+.consentText a
+{
+    color: var(--cyan);
+}
+
+.consentActions
+{
+    display: flex;
+    gap: .6rem;
+    flex-wrap: wrap;
+}
+
+.consentActions button
+{
+    font: inherit;
+    font-size: .9rem;
+    font-weight: 600;
+    padding: .5rem 1rem;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: rgba(168, 85, 247, .12);
+    color: var(--ink);
+    cursor: pointer;
+}
+
+.consentActions button.primary
+{
+    background: linear-gradient(120deg, var(--violet), #7c3aed);
+    border-color: transparent;
+    color: #fff;
+}
+
+.consentHead
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.consentClose
+{
+    font: inherit;
+    font-size: 1.4rem;
+    line-height: 1;
+    background: none;
+    border: 0;
+    color: var(--muted);
+    cursor: pointer;
+}
+
+.consentList
+{
+    list-style: none;
+    margin: .6rem 0 0;
+    padding: 0;
+    display: grid;
+    gap: .7rem;
+}
+
+.consentRow
+{
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: .7rem .9rem;
+    border: 1px solid rgba(168, 85, 247, .18);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, .02);
+}
+
+.consentRowName
+{
+    margin: 0;
+    font-weight: 700;
+    font-size: .92rem;
+}
+
+.consentRowWhy
+{
+    margin: .15rem 0 0;
+    font-size: .82rem;
+    color: var(--muted);
+    max-width: 78ch;
+}
+
+.consentAlways
+{
+    font-size: .75rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    white-space: nowrap;
+}
+
+.consentSwitch
+{
+    flex: none;
+    width: 52px;
+    height: 28px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: rgba(255, 255, 255, .06);
+    color: transparent;
+    cursor: pointer;
+    position: relative;
+}
+
+.consentSwitch::after
+{
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--muted);
+    transition: transform .18s ease, background .18s ease;
+}
+
+.consentSwitch[aria-checked="true"]
+{
+    background: rgba(34, 211, 238, .18);
+    border-color: rgba(34, 211, 238, .5);
+}
+
+.consentSwitch[aria-checked="true"]::after
+{
+    transform: translateX(24px);
+    background: var(--cyan);
+}
+
+@media (max-width: 640px)
+{
+    .keys
+    {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .foot-links
+    {
+        margin-left: 0;
+    }
+}

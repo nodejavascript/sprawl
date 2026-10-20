@@ -1,0 +1,14 @@
+{
+  "name": "sprawl",
+  "private": true,
+  "version": "1.0.0",
+  "description": "An endless neon city that is only built as far ahead as you can see.",
+  "license": "MIT",
+  "scripts": {
+    "serve": "python3 tools/serve.py 4355",
+    "test": "python3 tools/check-page.py && node tools/test-consent.mjs",
+    "test:e2e": "python3 tools/verify-consent.py",
+    "test:live": "node tools/live-check.mjs",
+    "test:all": "npm test && npm run test:e2e"
+  }
+}
