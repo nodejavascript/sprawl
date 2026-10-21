@@ -41,6 +41,7 @@ Collect the glowing shards. Three hits and the city is lost.
 npm run serve      # http://127.0.0.1:4355/
 npm test           # the page's own rules + the consent gate in a stub DOM
 npm run test:e2e   # the gate in a real browser: no request to Google before a yes
+npm run check:scroll  # the wheel moves the page, and the ship keeps its keys in flight (needs Playwright)
 npm run test:live  # against the deployed site
 ```
 

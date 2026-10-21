@@ -691,3 +691,14 @@ function updateStatus(dt)
 // the canvas lives in the page's own frame, so the engine is told where to put it
 engineInit(gameInit, gameUpdate, gameUpdatePost, undefined, gameRenderPost, [],
     document.getElementById('stage'));
+
+// The engine cancels the wheel and the page's own keys across the WHOLE document by default, so a
+// page with three screens of reading under the game could not be scrolled at all — measured in
+// Chrome: every wheel event arrived with defaultPrevented true and scrollY never left 0. Turn that
+// off, then hold back only the keys the ship is flying with, and only while a run is live.
+setInputPreventDefault(false);
+const FLIGHT_KEYS = new Set(['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Space']);
+addEventListener('keydown', (e) =>
+{
+    if (state.phase === 'play' && FLIGHT_KEYS.has(e.code)) e.preventDefault();
+}, { passive: false });
