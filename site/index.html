@@ -37,19 +37,84 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "VideoGame",
-  "name": "SPRAWL",
-  "description": "An endless neon city that is rebuilt a row ahead of you. A 3D flight through towers that rise as you arrive, with a 2D HUD drawn on the same canvas.",
-  "url": "https://sprawl.nodejavascript.com/",
-  "applicationCategory": "Game",
-  "gamePlatform": "Web browser",
-  "operatingSystem": "Any modern browser with WebGL2",
-  "playMode": "SinglePlayer",
-  "isAccessibleForFree": true,
-  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CAD" },
-  "codeRepository": "https://github.com/nodejavascript/sprawl",
-  "programmingLanguage": "JavaScript",
-  "author": { "@type": "Organization", "name": "nodejavascript.com", "url": "https://nodejavascript.com/" }
+  "@graph": [
+    {
+      "@type": "VideoGame",
+      "name": "SPRAWL",
+      "description": "An endless neon city that is rebuilt a row ahead of you. A 3D flight through towers that rise as you arrive, with a 2D HUD drawn on the same canvas.",
+      "url": "https://sprawl.nodejavascript.com/",
+      "applicationCategory": "Game",
+      "gamePlatform": "Web browser",
+      "operatingSystem": "Any modern browser with WebGL2",
+      "playMode": "SinglePlayer",
+      "isAccessibleForFree": true,
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CAD" },
+      "codeRepository": "https://github.com/nodejavascript/sprawl",
+      "programmingLanguage": "JavaScript",
+      "author": { "@type": "Organization", "name": "nodejavascript.com", "url": "https://nodejavascript.com/" }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is SPRAWL?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "SPRAWL is a free browser game: you fly a ship down an endless neon city that is built a row ahead of you. The towers do not exist until you reach them. They rise out of the ground as you arrive, and a row you have already passed is thrown away and rebuilt at the far end. There is nothing to install and no account."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do you play it?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Steer with the left and right arrow keys, climb and dive with up and down, and hold the space bar to boost. Collect the glowing shards: each is worth 25 points, and the score also climbs with the distance you fly. Three hits end the run. R starts again and M mutes the sound."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need an account, or anything installed?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. The game is one page of HTML and JavaScript loaded from this site, and it runs entirely in your browser. There is no sign-up, no download, no install and no server side to the game. Your best score is kept in this browser only."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What does it run on?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A browser with WebGL2: any current desktop Chrome, Edge, Firefox or Safari. The engine is a copy of LittleJS 1.27.1 served from this site, so no third party is contacted to play and the page loads nothing from a content network."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can you play it on a phone?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It is built for a keyboard: steering, climbing and the boost are all keys. A tap or a click starts a run, but there are no on-screen controls, so a phone will not fly the ship."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why is the whole city only four draw calls?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Every tower is an instance of the same box. The bodies, the roof lights, the two neon edge strips and the lit windows are each one instanced draw call, so the 760 buildings alive at once cost four draw calls a frame however many are on screen. That is what keeps it at 60 frames a second."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is anything about me sent anywhere?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Not unless you allow it. The game sends nothing: no score is uploaded and there is no leaderboard. The visit is measured only if you answer yes to the cookie question. If you decline, no request of any kind goes to Google."
+          }
+        }
+      ]
+    }
+  ]
 }
 </script>
 </head>
@@ -153,6 +218,61 @@
     </p>
   </section>
 
+  <section class="prose" id="questions">
+    <h2>Questions</h2>
+
+    <h3>What is SPRAWL?</h3>
+    <p>
+      A free browser game. You fly a ship down an endless neon city that is built a row ahead of
+      you: the towers do not exist until you reach them, they rise out of the ground as you arrive,
+      and a row you have already passed is thrown away and rebuilt at the far end. There is nothing
+      to install and no account to make.
+    </p>
+
+    <h3>How do you play it?</h3>
+    <p>
+      Steer with <b>←</b> and <b>→</b>, climb and dive with <b>↑</b> and <b>↓</b>, and hold
+      <b>Space</b> to boost. Collect the glowing shards — each one is worth <b>25 points</b>, and
+      the score also climbs with the distance you fly. <b>Three hits</b> end the run. <b>R</b>
+      starts again and <b>M</b> mutes the sound.
+    </p>
+
+    <h3>Do I need an account, or anything installed?</h3>
+    <p>
+      No. The game is one page of HTML and JavaScript loaded from this site, and it runs entirely
+      in your browser. There is no sign-up, no download, no install and no server side to the game.
+      Your best score is kept in this browser only.
+    </p>
+
+    <h3>What does it run on?</h3>
+    <p>
+      A browser with <b>WebGL2</b> — any current desktop Chrome, Edge, Firefox or Safari. The engine
+      is a copy of <b>LittleJS 1.27.1</b> served from this site, so no third party is contacted to
+      play and the page loads nothing from a content network.
+    </p>
+
+    <h3>Can you play it on a phone?</h3>
+    <p>
+      It is built for a keyboard: steering, climbing and the boost are all keys. A tap or a click
+      starts a run, but there are no on-screen controls, so a phone will not fly the ship.
+    </p>
+
+    <h3>Why is the whole city only four draw calls?</h3>
+    <p>
+      Every tower is an instance of the same box. The bodies, the roof lights, the two neon edge
+      strips and the lit windows are each one <em>instanced</em> draw call, so the <b>760 buildings
+      alive at once</b> cost four draw calls a frame however many are on screen. That is what keeps
+      it at 60 frames a second.
+    </p>
+
+    <h3>Is anything about me sent anywhere?</h3>
+    <p>
+      Not unless you allow it. The game sends nothing: no score is uploaded and there is no
+      leaderboard. The visit is measured only if you answer <b>yes</b> to the cookie question — if
+      you decline, no request of any kind goes to Google.
+    </p>
+  </section>
+
   <section class="prose" id="privacy">
     <h2>Privacy</h2>
     <p>
@@ -181,6 +301,7 @@
   <nav class="foot-links" aria-label="Footer">
     <a href="#play">Play</a>
     <a href="#how">How it is made</a>
+    <a href="#questions">Questions</a>
     <a href="#privacy">Privacy</a>
     <a href="https://github.com/nodejavascript/sprawl">
       <svg class="gh-star" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1.4l1.98 4.2 4.42.5-3.3 3.05.9 4.45L8 11.4l-4 2.2.9-4.45L1.6 6.1l4.42-.5z"></path></svg>

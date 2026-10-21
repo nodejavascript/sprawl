@@ -15,6 +15,7 @@ Exit 0 = every check passed. Exit 1 = at least one did not, and it says which.
 
 from __future__ import annotations
 
+import html as html_mod
 import json
 import re
 import sys
@@ -109,6 +110,28 @@ def main() -> int:
             check("the JSON-LD parses (%s)" % ", ".join(str(k) for k in kinds), True)
         except Exception as exc:  # noqa: BLE001
             check("the JSON-LD parses", False, str(exc))
+
+    # 🔴 THE QUESTIONS SECTION AND THE FAQ STRUCTURED DATA MUST AGREE. Structured data naming a question
+    # the page does not show is the "spammy structured markup" Google's own guidance penalises, and a
+    # question shown on the page but missing from the data gives the rich result away for nothing. Both
+    # are one edit apart, so this compares them rather than trusting that whoever edits one edits both.
+    section = re.search(r'<section class="prose" id="questions">(.*?)</section>', html, re.S)
+    asked = [
+        html_mod.unescape(re.sub(r"<[^>]+>", "", q)).strip()
+        for q in re.findall(r"<h3>(.*?)</h3>", section.group(1) if section else "", re.S)
+    ]
+    check("the page answers at least five questions", len(asked) >= 5, "%d question(s)" % len(asked))
+
+    faq: list[str] = []
+    for block in re.findall(r'<script type="application/ld\+json">(.*?)</script>', html, re.S):
+        for node in json.loads(block).get("@graph", []):
+            if node.get("@type") == "FAQPage":
+                faq = [q.get("name", "").strip() for q in node.get("mainEntity", [])]
+    check(
+        "the FAQ structured data names exactly the questions the page asks",
+        bool(faq) and faq == asked,
+        "%d in the data, %d on the page" % (len(faq), len(asked)),
+    )
 
     # a subresource is something the page LOADS: a script, an image, or a stylesheet/icon/manifest.
     # 🔴 A RELATION LINK IS NOT A SUBRESOURCE — the canonical and the og:url are <link> elements
